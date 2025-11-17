@@ -5,6 +5,7 @@ const initialState = {
   
   data: [],
   isLoading: false,
+  
   isError: false,
   searchTerm: 'react',
   
@@ -14,20 +15,27 @@ function storiesReducer(state, action) {
   
   switch (action.type) {
     case 'FETCH_INIT':
+      
       return { ...state, isLoading: true, isError: false };
+      
     case 'FETCH_SUCCESS':
       return { ...state, isLoading: false, data: action.payload };
+      
     case 'FETCH_FAILURE':
       return { ...state, isLoading: false, isError: true };
 
     case 'REMOVE_ITEM':
       return { ...state, data: state.data.filter(item => item.objectID !== action.payload) };
+      
     case 'SET_SEARCH_TERM':
       return { ...state, searchTerm: action.payload };
+      
     default:
       throw new Error();
   }
 }
+
+
 
 function App() {
   const inputRef = useRef();
@@ -36,11 +44,14 @@ function App() {
   const fetchStories = async (query) => {
     dispatch({ type: 'FETCH_INIT' });
 
+    
     try {
       const response = await fetch(`https://hn.algolia.com/api/v1/search?query=${query}`);
+
       
       const result = await response.json();
       dispatch({ type: 'FETCH_SUCCESS', payload: result.hits });
+
 
       
     } catch {
@@ -50,6 +61,7 @@ function App() {
 
   // Fetch stories on mount and whenever searchTerm changes
 
+  
   
   useEffect(() => {
     
