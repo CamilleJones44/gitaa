@@ -99,7 +99,7 @@ function App() {
       
       {state.isLoading ? (
       
-        <p>Loading...</p>
+        <p>Loading.......</p>
       ) : (
         <ul>
          
